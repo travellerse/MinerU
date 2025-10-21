@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import os
 from dataclasses import dataclass
-from typing import Optional
+from typing import ClassVar, Optional
 
 import numpy as np
 from loguru import logger
@@ -27,7 +29,7 @@ class _RecognitionResult:
 class _VLMTableRecognitionManager:
     """Lazy singleton responsible for upgrading VLM table spans with structural HTML."""
 
-    _instance: "_VLMTableRecognitionManager" | None = None
+    _instance: ClassVar[_VLMTableRecognitionManager | None] = None
 
     def __new__(cls):
         if cls._instance is None:
