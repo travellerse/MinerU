@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 from loguru import logger
 
+from mineru.backend.vlm.table_recognition import enhance_table_span
 from mineru.backend.vlm.vlm_magic_model import MagicModel
 from mineru.utils.config_reader import get_table_enable, get_llm_aided_config
 from mineru.utils.cut_image import cut_image_and_table
@@ -79,6 +80,8 @@ def blocks_to_page_info(page_blocks, image_dict, page, image_writer, page_index)
     for span in all_spans:
         if span["type"] in [ContentType.IMAGE, ContentType.TABLE, ContentType.INTERLINE_EQUATION]:
             span = cut_image_and_table(span, page_pil_img, page_img_md5, page_index, image_writer, scale=scale)
+            if span["type"] == ContentType.TABLE:
+                enhance_table_span(span, page_pil_img, scale)
 
     page_blocks = []
     page_blocks.extend([
