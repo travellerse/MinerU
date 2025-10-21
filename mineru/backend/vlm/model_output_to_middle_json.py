@@ -81,7 +81,7 @@ def blocks_to_page_info(page_blocks, image_dict, page, image_writer, page_index)
         if span["type"] in [ContentType.IMAGE, ContentType.TABLE, ContentType.INTERLINE_EQUATION]:
             span = cut_image_and_table(span, page_pil_img, page_img_md5, page_index, image_writer, scale=scale)
             if span["type"] == ContentType.TABLE:
-                enhance_table_span(span, page_pil_img, scale)
+                enhance_table_span(span, page_pil_img)
 
     page_blocks = []
     page_blocks.extend([
